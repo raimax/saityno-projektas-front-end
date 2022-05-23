@@ -1,0 +1,17 @@
+.grid-container {
+  margin: 30px 120px;
+  column-count: 5;
+  column-gap: 16px;
+}
+
+@media only screen and (max-width: 1600px) {
+  .grid-container {
+    column-count: 4;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .grid-container {
+    column-count: 3;
+  }
+}

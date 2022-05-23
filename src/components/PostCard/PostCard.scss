@@ -1,0 +1,41 @@
+.post-card {
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 40%);
+  cursor: pointer;
+  break-inside: avoid;
+  margin-bottom: 16px;
+
+  &:hover {
+    filter: brightness(110%);
+  }
+
+  .post-card_image {
+    border-radius: 0.25rem 0.25rem 0 0;
+    vertical-align: middle;
+  }
+
+  .post-card_content {
+    border-radius: 0 0 0.25rem 0.25rem;
+    background-color: #474a51;
+    padding: 10px 15px;
+
+    .post-card_content_title {
+      color: white;
+      word-break: break-all;
+    }
+
+    .post-card_content_info {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+
+      .info-icon {
+        font-size: 14px;
+        color: #b4b9c2;
+
+        svg {
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+}

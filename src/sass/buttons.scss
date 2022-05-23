@@ -1,0 +1,19 @@
+.button-success {
+	padding: 7px 15px;
+	background-color: #31be7c;
+	color: white;
+	font-weight: 600;
+	cursor: pointer;
+	border: none;
+	border-radius: 0.25rem;
+	text-decoration: none;
+
+	svg {
+		margin-right: 10px;
+		font-size: 20px;
+	}
+
+	&:hover {
+		background-color: lighten(#31be7c, 5%);
+	}
+}

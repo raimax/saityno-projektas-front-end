@@ -1,0 +1,40 @@
+.header {
+  display: flex;
+  height: 60px;
+  align-items: center;
+
+  .header_container {
+    flex: 1;
+    display: flex;
+    margin: 0 20px 0 20px;
+
+    .header_container_left {
+			display: flex;
+      flex: 1;
+			align-items: center;
+
+      .header_brand {
+        font-size: 24px;
+				margin-right: 20px;
+				color: white;
+				text-decoration: none;
+
+				svg {
+					margin-right: 10px;
+				}
+      }
+    }
+
+		.header_container_right {
+			display: flex;
+			align-items: center;
+
+			.header_link {
+				font-weight: 600;
+				color: white;
+				margin-right: 20px;
+				text-decoration: none;
+			}
+    }
+  }
+}
