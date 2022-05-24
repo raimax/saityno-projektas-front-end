@@ -23,7 +23,7 @@ const PostCard = ({ post }: PostCardProps) => {
           <div className="post-card_content_info">
             <div className="info-icon">
               <FontAwesomeIcon icon={faHeart} />
-              {post.views}
+              {post.likes.length}
             </div>
             <div className="info-icon">
               <FontAwesomeIcon icon={faEye} />
@@ -31,7 +31,7 @@ const PostCard = ({ post }: PostCardProps) => {
             </div>
             <div className="info-icon">
               <FontAwesomeIcon icon={faComment} />
-              {post.views}
+              {post.comments.length}
             </div>
           </div>
         </div>

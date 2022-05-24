@@ -5,12 +5,13 @@ export default class GenerateMockData {
       let x: number = 250 * Math.floor(Math.random() * (5 - 2 + 2) + 2);
       let y: number = 270 * Math.floor(Math.random() * (5 - 2 + 2) + 2);
       let post3: Post = {
-        id: i + 1,
-        image: `https://picsum.photos/${x}/${y}`,
-        title: "random" + i,
-        views: 0,
-        comments: this.generateComments(5),
-      };
+				id: i + 1,
+				image: `https://picsum.photos/${x}/${y}`,
+				title: "random" + i,
+				views: 0,
+				comments: this.generateComments(5),
+				likes: []
+			};
       posts.push(post3);
     }
     return posts;
@@ -25,6 +26,7 @@ export default class GenerateMockData {
       title: "random title",
       views: 0,
       comments: this.generateComments(5),
+      likes: [],
     };
 
     return post;

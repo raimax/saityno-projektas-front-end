@@ -2,6 +2,7 @@
 
 html {
 	height: 100vh;
+	box-sizing: border-box;
 }
 
 img {
@@ -12,4 +13,8 @@ img {
 
 a {
 	text-decoration: none;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
 }

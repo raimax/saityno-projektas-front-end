@@ -3,17 +3,23 @@ type Post = {
   image: string;
   title: string;
   views: number;
-	comments: PostComment[]
+  comments: PostComment[];
+  likes: Like[];
+};
+
+type Like = {
+  id: number;
+  user: User;
 };
 
 type User = {
-	id: number,
-	username: string
-}
+  id: number;
+  username: string;
+};
 
 type PostComment = {
-	id: number,
-	user: User,
-	createdAt: string,
-	content: string
-}
+  id: number;
+  user: User;
+  createdAt: string;
+  content: string;
+};
