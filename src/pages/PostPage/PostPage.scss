@@ -103,7 +103,7 @@
         }
 
         .comment-container_footer {
-          height: 55px;
+          height: 45px;
           display: flex;
           justify-content: flex-end;
           align-items: center;
@@ -119,6 +119,7 @@
             cursor: pointer;
             box-shadow: 0 2px 4px 0 rgb(0 0 0 / 40%);
             margin-right: 15px;
+						margin-top: -5px;
 
             &:hover {
               background-color: lighten(#27292d, 25%);
