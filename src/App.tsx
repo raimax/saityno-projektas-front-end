@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.scss";
 import Header from "./components/Header/Header";
-import HomePage from "./pages/HomePage";
-import PostPage from "./pages/PostPage";
+import HomePage from "./pages/HomePage/HomePage";
+import PostPage from "./pages/PostPage/PostPage";
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/:postId" element={<PostPage />} />
+          <Route path="/posts/:postId" element={<PostPage />} />
         </Routes>
       </div>
     </BrowserRouter>

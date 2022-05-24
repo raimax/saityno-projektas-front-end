@@ -6,11 +6,14 @@
 
   &:hover {
     filter: brightness(110%);
+		background-color: #474a51;
+		border-radius: 0.25rem 0.25rem 0.25rem 0.25rem;
   }
 
   .post-card_image {
     border-radius: 0.25rem 0.25rem 0 0;
     vertical-align: middle;
+		max-height: 400px;
   }
 
   .post-card_content {
