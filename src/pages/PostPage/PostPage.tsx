@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
 import "./PostPage.scss";
+import CommentList from "../../components/CommentList/CommentList";
 
 const PostPage = () => {
   const [post, setPost] = useState<Post | null>(null);
@@ -30,11 +31,23 @@ const PostPage = () => {
           <div className="post-content_image_container">
             <img
               className="post-content_image"
-              src="https://picsum.photos/400/800"
+              src={`${post.image}`}
               alt="ef"
             />
           </div>
-          <div>COMMENTS</div>
+          <div className="comment-container">
+            <textarea placeholder="Leave a comment" className="comment-box" />
+            <div className="comment-container_footer">
+              <button className="post-button" type="button">
+                Post
+              </button>
+            </div>
+          </div>
+          <div className="comments-title">
+            <span className="comments-title_count">{post.comments.length}</span>
+            COMMENTS
+          </div>
+          <CommentList comments={post.comments} />
         </div>
       </div>
     );

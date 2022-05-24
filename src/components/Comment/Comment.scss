@@ -1,0 +1,25 @@
+.comment {
+	margin: 15px 0;
+	border-bottom: 1px solid #666;
+	padding-bottom: 20px;
+
+	.comment_header {
+		display: flex;
+		margin-bottom: 5px;
+		font-size: 14px;
+
+		.comment_header_author {
+			margin-right: 10px;
+			color: #3ccd89;
+		}
+
+		.comment_header_date {
+			color: #ddd;
+			margin-left: 10px;
+		}
+	}
+
+	.comment_content {
+
+	}
+}

@@ -9,6 +9,7 @@ export default class GenerateMockData {
         image: `https://picsum.photos/${x}/${y}`,
         title: "random" + i,
         views: 0,
+        comments: this.generateComments(5),
       };
       posts.push(post3);
     }
@@ -16,15 +17,33 @@ export default class GenerateMockData {
   }
 
   static generatePost() {
-    let x: number = 250 * Math.floor(Math.random() * (5 - 2 + 2) + 2);
+    let x: number = 300 * Math.floor(Math.random() * (5 - 2 + 2) + 2);
     let y: number = 270 * Math.floor(Math.random() * (5 - 2 + 2) + 2);
     let post: Post = {
       id: 9999,
       image: `https://picsum.photos/${x}/${y}`,
       title: "random title",
       views: 0,
+      comments: this.generateComments(5),
     };
 
     return post;
+  }
+
+  static generateComments(amount: number) {
+    const comments: PostComment[] = [];
+    for (let i = 0; i < amount; i++) {
+      let comment: PostComment = {
+        id: i + 1,
+        user: {
+          id: i + 1,
+          username: "random" + (i + 1),
+        },
+        createdAt: new Date().toLocaleDateString(),
+        content: "this is a comment " + (i + 1),
+      };
+      comments.push(comment);
+    }
+    return comments;
   }
 }
