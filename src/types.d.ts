@@ -1,10 +1,16 @@
 type Post = {
   id: number;
-  image: string;
   title: string;
+  image: string;
   views: number;
   comments: PostComment[];
   likes: Like[];
+};
+
+type NewPost = {
+  title: string;
+  image: any;
+  user: User;
 };
 
 type Like = {
