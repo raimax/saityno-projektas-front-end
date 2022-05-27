@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./ImageUpload.scss";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
@@ -16,6 +16,12 @@ const ImageUpload = ({ image }) => {
       setPreview(URL.createObjectURL(productImageUpload.current.files[0]));
     }
   };
+
+  useEffect(() => {
+    if (image == null && preview !== null) {
+      setPreview(null);
+    }
+  }, [image, preview]);
 
   const RemovePreview = () => {
     image(null);

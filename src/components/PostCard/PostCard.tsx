@@ -15,7 +15,7 @@ const PostCard = ({ post }: PostCardProps) => {
       <div className="post-card">
         <img
           className="post-card_image"
-          src={post.image}
+          src={`${process.env.REACT_APP_IMAGE_URL}/${post.image}`}
           alt={post.id.toString()}
         />
         <div className="post-card_content">

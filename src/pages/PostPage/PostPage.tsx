@@ -1,18 +1,41 @@
 import { useEffect, useState } from "react";
-import GenerateMockData from "../../helpers/generateMockPosts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
 import "./PostPage.scss";
 import CommentList from "../../components/CommentList/CommentList";
+import { useParams } from "react-router-dom";
+import axiosConfig from "../../helpers/axiosConfig";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Loader from "../../components/Loader/Loader";
 
 const PostPage = () => {
   const [post, setPost] = useState<Post | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  let { postId } = useParams();
+
+  const GetPostByIdAsync = async (id: string | undefined) => {
+		if (id) {
+			setLoading(true);
+      await axiosConfig
+        .get("/posts/" + id)
+        .then((response) => {
+          setPost(response.data);
+        })
+        .catch((error) => {
+          toast(error.response);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  };
 
   useEffect(() => {
-    const post: Post = GenerateMockData.generatePost();
-    setPost(post);
-  }, []);
+    GetPostByIdAsync(postId);
+  }, [postId]);
 
   const RenderPost = () => {
     if (post === null) return <div>No post found</div>;
@@ -31,7 +54,7 @@ const PostPage = () => {
           <div className="post-content_image_container">
             <img
               className="post-content_image"
-              src={`${post.image}`}
+              src={`${process.env.REACT_APP_IMAGE_URL}/${post.image}`}
               alt="ef"
             />
           </div>
@@ -53,7 +76,16 @@ const PostPage = () => {
     );
   };
 
-  return <div className="post-page">{RenderPost()}</div>;
+  if (loading) {
+    return <Loader />;
+  }
+
+  return (
+    <div className="post-page">
+      <ToastContainer />
+      {RenderPost()}
+    </div>
+  );
 };
 
 export default PostPage;

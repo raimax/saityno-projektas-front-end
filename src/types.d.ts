@@ -9,7 +9,7 @@ type Post = {
 
 type NewPost = {
   title: string;
-  image: any;
+  imageFile: any;
   user: User;
 };
 

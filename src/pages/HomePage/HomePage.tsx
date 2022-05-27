@@ -1,15 +1,37 @@
 import { useEffect, useState } from "react";
+import Loader from "../../components/Loader/Loader";
 import PostList from "../../components/PostsList/PostList";
-import GenerateMockData from "../../helpers/generateMockPosts";
+import axiosConfig from "../../helpers/axiosConfig";
 import "./HomePage.scss";
 
 const HomePage = () => {
   const [posts, setPosts] = useState<Post[] | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const GetPostsAsync = async () => {
+    setLoading(true);
+    await axiosConfig
+      .get("/posts")
+      .then((response) => {
+        if (response?.data?.length) {
+          setPosts(response.data);
+        }
+      })
+      .catch((error) => {
+        console.log(error.response);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
   useEffect(() => {
-    const posts2: Post[] = GenerateMockData.generatePosts(14);
-    setPosts(posts2);
+    GetPostsAsync();
   }, []);
+
+	if (loading) {
+		return <Loader />
+	}
 
   return (
     <div className="home-page">

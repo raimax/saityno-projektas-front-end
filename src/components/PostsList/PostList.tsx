@@ -7,14 +7,25 @@ interface PostsListProps {
 
 const PostList = ({ posts }: PostsListProps) => {
   const RenderPosts = () => {
-    if (posts === null) return <div>No posts</div>;
+    if (posts === null) return RenderNoPosts();
 
     return posts?.map((post) => {
       return <PostCard key={post.id} post={post} />;
     });
   };
 
-  return <div className="grid-container">{RenderPosts()}</div>;
+  const RenderNoPosts = () => {
+    return (
+      <>
+        <img src="/images/no_posts.png" alt="no_posts" />
+        <div>No posts</div>
+      </>
+    );
+  };
+
+  return (
+    <div className={posts ? "grid-container" : "no-posts"}>{RenderPosts()}</div>
+  );
 };
 
 export default PostList;
