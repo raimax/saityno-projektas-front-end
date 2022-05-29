@@ -5,6 +5,7 @@ type Post = {
   views: number;
   comments: PostComment[];
   likes: Like[];
+  user: User;
 };
 
 type NewPost = {

@@ -17,8 +17,8 @@ const PostPage = () => {
   let { postId } = useParams();
 
   const GetPostByIdAsync = async (id: string | undefined) => {
-		if (id) {
-			setLoading(true);
+    if (id) {
+      setLoading(true);
       await axiosConfig
         .get("/posts/" + id)
         .then((response) => {
@@ -26,7 +26,7 @@ const PostPage = () => {
         })
         .catch((error) => {
           toast(error.response);
-					console.log(error.response)
+          console.log(error.response);
         })
         .finally(() => {
           setLoading(false);
@@ -45,13 +45,13 @@ const PostPage = () => {
       <div className="post-container">
         <div className="post-sidebar">
           <FontAwesomeIcon icon={faHeart} className="post-sidebar_heart" />
-          {post.views}
+          {post?.likes?.length}
           <FontAwesomeIcon icon={faComment} className="post-sidebar_comment" />
-          {post.views}
+          {post?.comments?.length}
         </div>
         <div className="post-content">
           <div className="post-content_title">{post.title}</div>
-          <div className="post-content_author">by author</div>
+          <div className="post-content_author">by {post.user.username}</div>
           <div className="post-content_image_container">
             <img
               className="post-content_image"
