@@ -26,6 +26,7 @@ const PostPage = () => {
         })
         .catch((error) => {
           toast(error.response);
+					console.log(error.response)
         })
         .finally(() => {
           setLoading(false);

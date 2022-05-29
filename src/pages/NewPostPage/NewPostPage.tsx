@@ -27,6 +27,7 @@ const NewPostPage = () => {
       .then((response) => {
         ResetInputs();
         toast(response.data);
+				console.log(response.data)
       })
       .catch((error) => {
         toast(error.response);
