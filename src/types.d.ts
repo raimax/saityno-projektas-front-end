@@ -15,9 +15,9 @@ type NewPost = {
 };
 
 type AddLike = {
-	userId: number,
-	postId: number
-}
+  userId: number;
+  postId: number;
+};
 
 type Like = {
   id: number;
@@ -33,5 +33,10 @@ type PostComment = {
   id: number;
   user: User;
   createdAt: string;
+  content: string;
+};
+
+type CommentData = {
+  user: User;
   content: string;
 };

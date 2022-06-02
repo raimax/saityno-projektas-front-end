@@ -13,6 +13,7 @@ import Loader from "../../components/Loader/Loader";
 
 const PostPage = () => {
   const [post, setPost] = useState<Post | null>(null);
+  const [comment, setComment] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   let { postId } = useParams();
   const commentsElement = useRef() as RefObject<HTMLDivElement>;
@@ -61,12 +62,33 @@ const PostPage = () => {
     commentsElement.current?.scrollIntoView();
   };
 
+  const AddCommentAsync = async () => {
+    const data: CommentData = {
+      user: {
+        id: 1,
+        username: "admin",
+      },
+      content: comment,
+    };
+    await axiosConfig
+      .post("/comment", data)
+      .then((response) => {
+        toast(response.data);
+        GetPostByIdAsync(postId);
+      })
+      .catch((error) => {
+        toast(error.response.data);
+      })
+      .finally();
+  };
+
   useEffect(() => {
     GetPostByIdAsync(postId);
   }, [postId]);
 
   const RenderPost = () => {
-    if (post === null) return <div>No post found</div>;
+    if (post === null)
+      return <div style={{ textAlign: "center" }}>No post found</div>;
 
     return (
       <div className="post-container">
@@ -95,9 +117,18 @@ const PostPage = () => {
             />
           </div>
           <div className="comment-container">
-            <textarea placeholder="Leave a comment" className="comment-box" />
+            <textarea
+              onChange={(event) => setComment(event.currentTarget.value)}
+              value={comment}
+              placeholder="Leave a comment"
+              className="comment-box"
+            />
             <div className="comment-container_footer">
-              <button className="post-button" type="button">
+              <button
+                onClick={AddCommentAsync}
+                className="post-button"
+                type="button"
+              >
                 Post
               </button>
             </div>
