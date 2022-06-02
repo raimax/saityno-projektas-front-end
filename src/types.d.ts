@@ -14,6 +14,11 @@ type NewPost = {
   user: User;
 };
 
+type AddLike = {
+	userId: number,
+	postId: number
+}
+
 type Like = {
   id: number;
   user: User;

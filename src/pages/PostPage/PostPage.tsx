@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { RefObject, useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
@@ -15,6 +15,7 @@ const PostPage = () => {
   const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   let { postId } = useParams();
+  const commentsElement = useRef() as RefObject<HTMLDivElement>;
 
   const GetPostByIdAsync = async (id: string | undefined) => {
     if (id) {
@@ -34,6 +35,32 @@ const PostPage = () => {
     }
   };
 
+  const AddLikeToPostAsync = async () => {
+    setLoading(true);
+    const data: AddLike = {
+      userId: 1,
+      postId: post!.id,
+    };
+
+    await axiosConfig
+      .post("/likes", data)
+      .then((response) => {
+        toast(response.data);
+        GetPostByIdAsync(postId);
+      })
+      .catch((error) => {
+        toast(error.response.data);
+        console.log(error.response);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  const OnCommentIconClick = () => {
+    commentsElement.current?.scrollIntoView();
+  };
+
   useEffect(() => {
     GetPostByIdAsync(postId);
   }, [postId]);
@@ -44,10 +71,18 @@ const PostPage = () => {
     return (
       <div className="post-container">
         <div className="post-sidebar">
-          <FontAwesomeIcon icon={faHeart} className="post-sidebar_heart" />
-          {post?.likes?.length}
-          <FontAwesomeIcon icon={faComment} className="post-sidebar_comment" />
-          {post?.comments?.length}
+          <FontAwesomeIcon
+            icon={faHeart}
+            className="post-sidebar_heart"
+            onClick={AddLikeToPostAsync}
+          />
+          <span>{post?.likes?.length}</span>
+          <FontAwesomeIcon
+            onClick={OnCommentIconClick}
+            icon={faComment}
+            className="post-sidebar_comment"
+          />
+          <span>{post?.comments?.length}</span>
         </div>
         <div className="post-content">
           <div className="post-content_title">{post.title}</div>
@@ -67,7 +102,7 @@ const PostPage = () => {
               </button>
             </div>
           </div>
-          <div className="comments-title">
+          <div className="comments-title" ref={commentsElement}>
             <span className="comments-title_count">{post.comments.length}</span>
             COMMENTS
           </div>
@@ -77,13 +112,10 @@ const PostPage = () => {
     );
   };
 
-  if (loading) {
-    return <Loader />;
-  }
-
   return (
     <div className="post-page">
-      <ToastContainer />
+      <Loader isLoading={loading} />
+      <ToastContainer theme="dark" />
       {RenderPost()}
     </div>
   );

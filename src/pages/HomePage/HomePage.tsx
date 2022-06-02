@@ -30,7 +30,7 @@ const HomePage = () => {
   }, []);
 
 	if (loading) {
-		return <Loader />
+		return <Loader text="Loading posts..." isLoading={loading} />
 	}
 
   return (

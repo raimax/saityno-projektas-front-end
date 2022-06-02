@@ -1,8 +1,20 @@
 .loader {
-	color: white;
-	text-align: center;
-	
-	svg {
-		width: 100px;
+  color: white;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+	background-color: rgba(0, 0, 0, 0.3);
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+  svg {
+    width: 100px;
+  }
+
+	span {
+		
 	}
 }

@@ -4,7 +4,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const ImageUpload = ({ image }) => {
+const ImageUpload = ({ image, reset }) => {
   const productImageUpload = useRef();
   const [preview, setPreview] = useState(null);
   const [file, setFile] = useState(null);
@@ -18,10 +18,10 @@ const ImageUpload = ({ image }) => {
   };
 
   useEffect(() => {
-    if (image == null && preview !== null) {
+    if (reset == null) {
       setPreview(null);
     }
-  }, [image, preview]);
+  }, [reset]);
 
   const RemovePreview = () => {
     image(null);

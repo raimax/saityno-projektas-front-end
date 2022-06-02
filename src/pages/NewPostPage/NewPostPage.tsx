@@ -5,6 +5,7 @@ import "./NewPostPage.scss";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Loader from "../../components/Loader/Loader";
 
 const NewPostPage = () => {
   const [image, setImage] = useState<any>(null);
@@ -27,7 +28,6 @@ const NewPostPage = () => {
       .then((response) => {
         ResetInputs();
         toast(response.data);
-				console.log(response.data)
       })
       .catch((error) => {
         toast(error.response);
@@ -44,6 +44,7 @@ const NewPostPage = () => {
 
   return (
     <div className="new-post-page">
+      <Loader text="Please wait..." isLoading={loading} />
       <ToastContainer theme="dark" />
       <div className="image-upload-container">
         <form>
@@ -53,7 +54,7 @@ const NewPostPage = () => {
             onChange={(event) => setTitle(event.currentTarget.value)}
             value={title}
           />
-          <ImageUpload image={setImage} />
+          <ImageUpload image={setImage} reset={image} />
           <div className="image-upload_button-container">
             <button
               onClick={AddNewPostAsync}
