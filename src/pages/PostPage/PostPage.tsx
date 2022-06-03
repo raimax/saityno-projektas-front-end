@@ -81,6 +81,7 @@ const PostPage = () => {
           id: 0,
           username: "",
         },
+				links: []
       },
     };
     await axiosConfig

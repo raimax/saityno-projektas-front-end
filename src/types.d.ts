@@ -6,6 +6,12 @@ type Post = {
   comments: PostComment[];
   likes: Like[];
   user: User;
+  links: PostLink[];
+};
+
+type PostLink = {
+  rel: string;
+  href: string;
 };
 
 type NewPost = {

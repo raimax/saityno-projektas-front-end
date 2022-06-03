@@ -92,6 +92,7 @@ const RandomPage = () => {
           id: 0,
           username: "",
         },
+				links: []
       },
     };
     await axiosConfig
