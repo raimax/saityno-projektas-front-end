@@ -1,21 +1,16 @@
-import React, { RefObject, useEffect, useRef, useState } from "react";
+import { faComment, faHeart, faDice } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { faComment } from "@fortawesome/free-solid-svg-icons";
-import "./PostPage.scss";
+import { RefObject, useEffect, useRef, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 import CommentList from "../../components/CommentList/CommentList";
-import { useParams } from "react-router-dom";
-import axiosConfig from "../../helpers/axiosConfig";
-
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import Loader from "../../components/Loader/Loader";
+import axiosConfig from "../../helpers/axiosConfig";
+import "../PostPage/PostPage.scss";
 
-const PostPage = () => {
+const RandomPage = () => {
   const [post, setPost] = useState<Post | null>(null);
   const [comment, setComment] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  let { postId } = useParams();
   const commentsElement = useRef() as RefObject<HTMLDivElement>;
 
   const GetPostByIdAsync = async (id: string | undefined) => {
@@ -37,6 +32,22 @@ const PostPage = () => {
     }
   };
 
+  const GetRandomPost = async () => {
+    setLoading(true);
+    await axiosConfig
+      .get("/posts/random")
+      .then((response) => {
+        setPost(response.data);
+      })
+      .catch((error) => {
+        toast(error.response);
+        console.log(error.response);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
   const AddLikeToPostAsync = async () => {
     setLoading(true);
     const data: AddLike = {
@@ -48,7 +59,7 @@ const PostPage = () => {
       .post("/likes", data)
       .then((response) => {
         toast(response.data);
-        GetPostByIdAsync(postId);
+        GetPostByIdAsync(post!.id.toString());
       })
       .catch((error) => {
         toast(error.response.data);
@@ -88,7 +99,7 @@ const PostPage = () => {
       .then((response) => {
         toast(response.data);
         setComment("");
-        GetPostByIdAsync(postId);
+        GetPostByIdAsync(post!.id.toString());
       })
       .catch((error) => {
         toast(error.response.data);
@@ -97,8 +108,8 @@ const PostPage = () => {
   };
 
   useEffect(() => {
-    GetPostByIdAsync(postId);
-  }, [postId]);
+    GetRandomPost();
+  }, []);
 
   const RenderPost = () => {
     if (post === null)
@@ -119,6 +130,11 @@ const PostPage = () => {
             className="post-sidebar_comment"
           />
           <span>{post?.comments?.length}</span>
+					<FontAwesomeIcon
+            onClick={GetRandomPost}
+            icon={faDice}
+            className="post-sidebar_comment"
+          />
         </div>
         <div className="post-content">
           <div className="post-content_title">{post.title}</div>
@@ -166,4 +182,4 @@ const PostPage = () => {
   );
 };
 
-export default PostPage;
+export default RandomPage;

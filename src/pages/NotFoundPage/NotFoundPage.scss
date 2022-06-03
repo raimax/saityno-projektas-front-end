@@ -1,0 +1,18 @@
+.not-found-page {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	height: calc(100vh - 60px);
+
+	svg {
+		font-size: 200px;
+		margin-bottom: 30px;
+		opacity: 0.5;
+	}
+
+	span {
+		font-weight: 700;
+		font-size: 2em;
+	}
+}
