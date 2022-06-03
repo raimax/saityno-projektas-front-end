@@ -10,7 +10,7 @@ const Comment = ({ comment }: CommentProps) => {
       <div className="comment_header">
         <div className="comment_header_author">{comment.user.username}</div>
 				&bull;
-        <div className="comment_header_date">{comment.createdAt}</div>
+        <div className="comment_header_date">{new Date(comment.createdAt).toUTCString()}</div>
       </div>
       <div className="comment_content">{comment.content}</div>
     </div>

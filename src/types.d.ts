@@ -37,6 +37,7 @@ type PostComment = {
 };
 
 type CommentData = {
+  post: Post;
   user: User;
   content: string;
 };

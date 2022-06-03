@@ -20,6 +20,7 @@ const PostPage = () => {
 
   const GetPostByIdAsync = async (id: string | undefined) => {
     if (id) {
+			console.log("fetched")
       setLoading(true);
       await axiosConfig
         .get("/posts/" + id)
@@ -69,9 +70,21 @@ const PostPage = () => {
         username: "admin",
       },
       content: comment,
+      post: {
+        id: post!.id,
+        title: "",
+        image: "",
+        views: 0,
+        comments: [],
+        likes: [],
+        user: {
+          id: 0,
+          username: "",
+        },
+      },
     };
     await axiosConfig
-      .post("/comment", data)
+      .post("/comments", data)
       .then((response) => {
         toast(response.data);
         GetPostByIdAsync(postId);
