@@ -6,6 +6,7 @@ import "./PostPage.scss";
 import CommentList from "../../components/CommentList/CommentList";
 import { useParams } from "react-router-dom";
 import axiosConfig from "../../helpers/axiosConfig";
+import { IsAuthed } from "../../components/IsAuthed/IsAuthed";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -38,6 +39,11 @@ const PostPage = () => {
   };
 
   const AddLikeToPostAsync = async () => {
+    if (!IsAuthed()) {
+      toast("Must be logged in");
+      return;
+    }
+
     setLoading(true);
     const data: AddLike = {
       userId: 1,
@@ -81,7 +87,7 @@ const PostPage = () => {
           id: 0,
           username: "",
         },
-				links: []
+        links: [],
       },
     };
     await axiosConfig
@@ -131,23 +137,28 @@ const PostPage = () => {
               alt="ef"
             />
           </div>
-          <div className="comment-container">
-            <textarea
-              onChange={(event) => setComment(event.currentTarget.value)}
-              value={comment}
-              placeholder="Leave a comment"
-              className="comment-box"
-            />
-            <div className="comment-container_footer">
-              <button
-                onClick={AddCommentAsync}
-                className="post-button"
-                type="button"
-              >
-                Post
-              </button>
-            </div>
-          </div>
+
+          {IsAuthed() ? (
+            <>
+              <div className="comment-container">
+                <textarea
+                  onChange={(event) => setComment(event.currentTarget.value)}
+                  value={comment}
+                  placeholder="Leave a comment"
+                  className="comment-box"
+                />
+                <div className="comment-container_footer">
+                  <button
+                    onClick={AddCommentAsync}
+                    className="post-button"
+                    type="button"
+                  >
+                    Post
+                  </button>
+                </div>
+              </div>
+            </>
+          ) : null}
           <div className="comments-title" ref={commentsElement}>
             <span className="comments-title_count">{post.comments.length}</span>
             COMMENTS

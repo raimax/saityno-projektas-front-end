@@ -47,3 +47,8 @@ type CommentData = {
   user: User;
   content: string;
 };
+
+type AuthData = {
+  username: string;
+  password: string;
+};

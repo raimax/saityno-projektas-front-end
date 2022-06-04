@@ -17,3 +17,23 @@
 		background-color: lighten(#31be7c, 5%);
 	}
 }
+
+.button-danger {
+	padding: 7px 15px;
+	background-color: #be3131;
+	color: white;
+	font-weight: 600;
+	cursor: pointer;
+	border: none;
+	border-radius: 0.25rem;
+	text-decoration: none;
+
+	svg {
+		margin-right: 10px;
+		font-size: 20px;
+	}
+
+	&:hover {
+		background-color: lighten(#be3131, 5%);
+	}
+}
