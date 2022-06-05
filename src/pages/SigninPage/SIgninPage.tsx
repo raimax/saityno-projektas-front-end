@@ -4,11 +4,14 @@ import { ToastContainer, toast } from "react-toastify";
 import axiosConfig from "../../helpers/axiosConfig";
 import Loader from "../../components/Loader/Loader";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { HandleSignIn } from "../../helpers/Auth";
 
 const SigninPage = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+	const navigate = useNavigate();
 
   const SignInAsync = async () => {
     setLoading(true);
@@ -21,7 +24,8 @@ const SigninPage = () => {
     await axiosConfig
       .post("/auth/signin", data)
       .then((response) => {
-        console.log(response.data);
+				HandleSignIn(response.data);
+				navigate("/");
       })
       .catch((error) => {
         toast(error.response.data);

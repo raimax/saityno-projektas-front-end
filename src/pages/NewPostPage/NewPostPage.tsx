@@ -6,6 +6,7 @@ import "./NewPostPage.scss";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "../../components/Loader/Loader";
+import { GetLoggedUser } from "../../helpers/Auth";
 
 const NewPostPage = () => {
   const [image, setImage] = useState<any>(null);
@@ -13,10 +14,14 @@ const NewPostPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const AddNewPostAsync = async () => {
+    const loggedUser: User | null | undefined = GetLoggedUser();
+
+    if (!loggedUser) return;
+
     setLoading(true);
     const formData = new FormData();
     formData.append("title", title);
-    formData.append("userId", "1");
+    formData.append("userId", loggedUser.id.toString());
     formData.append("imageFile", image, image.name);
 
     await axiosConfig

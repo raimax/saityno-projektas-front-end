@@ -6,7 +6,7 @@ import "./PostPage.scss";
 import CommentList from "../../components/CommentList/CommentList";
 import { useParams } from "react-router-dom";
 import axiosConfig from "../../helpers/axiosConfig";
-import { IsAuthed } from "../../components/IsAuthed/IsAuthed";
+import { GetLoggedUser, IsAuthed } from "../../helpers/Auth";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -21,7 +21,6 @@ const PostPage = () => {
 
   const GetPostByIdAsync = async (id: string | undefined) => {
     if (id) {
-      console.log("fetched");
       setLoading(true);
       await axiosConfig
         .get("/posts/" + id)
@@ -39,14 +38,18 @@ const PostPage = () => {
   };
 
   const AddLikeToPostAsync = async () => {
+    const loggedUser: User | null | undefined = GetLoggedUser();
+
     if (!IsAuthed()) {
       toast("Must be logged in");
       return;
     }
 
+    if (!loggedUser) return;
+
     setLoading(true);
     const data: AddLike = {
-      userId: 1,
+      userId: loggedUser.id,
       postId: post!.id,
     };
 
@@ -70,37 +73,42 @@ const PostPage = () => {
   };
 
   const AddCommentAsync = async () => {
-    const data: CommentData = {
-      user: {
-        id: 1,
-        username: "admin",
-      },
-      content: comment,
-      post: {
-        id: post!.id,
-        title: "",
-        image: "",
-        views: 0,
-        comments: [],
-        likes: [],
+    const loggedUser: User | null | undefined = GetLoggedUser();
+    if (loggedUser) {
+      const data: CommentData = {
         user: {
-          id: 0,
-          username: "",
+          id: loggedUser.id,
+          username: loggedUser.username,
+          roles: loggedUser.roles,
         },
-        links: [],
-      },
-    };
-    await axiosConfig
-      .post("/comments", data)
-      .then((response) => {
-        toast(response.data);
-        setComment("");
-        GetPostByIdAsync(postId);
-      })
-      .catch((error) => {
-        toast(error.response.data);
-      })
-      .finally();
+        content: comment,
+        post: {
+          id: post!.id,
+          title: "",
+          image: "",
+          views: 0,
+          comments: [],
+          likes: [],
+          user: {
+            id: 0,
+            username: "",
+            roles: [],
+          },
+          links: [],
+        },
+      };
+      await axiosConfig
+        .post("/comments", data)
+        .then((response) => {
+          toast(response.data);
+          setComment("");
+          GetPostByIdAsync(postId);
+        })
+        .catch((error) => {
+          toast(error.response.data);
+        })
+        .finally();
+    }
   };
 
   useEffect(() => {

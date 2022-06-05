@@ -33,6 +33,7 @@ type Like = {
 type User = {
   id: number;
   username: string;
+  roles: Role[];
 };
 
 type PostComment = {
@@ -51,4 +52,9 @@ type CommentData = {
 type AuthData = {
   username: string;
   password: string;
+};
+
+type Role = {
+	id: number,
+	name: string
 };

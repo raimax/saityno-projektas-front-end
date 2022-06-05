@@ -79,6 +79,7 @@ const RandomPage = () => {
       user: {
         id: 1,
         username: "admin",
+				roles: []
       },
       content: comment,
       post: {
@@ -91,6 +92,7 @@ const RandomPage = () => {
         user: {
           id: 0,
           username: "",
+					roles: []
         },
 				links: []
       },
