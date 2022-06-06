@@ -3,6 +3,14 @@
   height: 60px;
   align-items: center;
 
+	.header_link_random {
+		font-weight: 600;
+		color: white;
+		margin-right: 20px;
+		text-decoration: none;
+		margin-left: 30px;
+	}
+
   .header_container {
     flex: 1;
     display: flex;

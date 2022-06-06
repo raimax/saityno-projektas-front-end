@@ -18,11 +18,11 @@ const Header = () => {
     await axiosConfig
       .post("/auth/logout", null)
       .then(() => {
-				HandleLogout();
+        HandleLogout();
         navigate("/");
       })
       .catch((error) => {
-				HandleLogout();
+        HandleLogout();
         console.log(error.response.data);
       })
       .finally(() => {
@@ -45,6 +45,9 @@ const Header = () => {
               New post
             </Link>
           ) : null}
+          <Link to={"/random"} className="header_link_random">
+            Random
+          </Link>
         </div>
         <div className="header_container_right">
           {IsAuthed() ? (
